@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 public class FirstRunScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject firstRun;
     public Save save;
-    public bool isFirst;
-    string path = ".. /SaveDeta/FirstBoot";
+    string path = @"/FirstBoot.txt";
     private void Start()
     {
         /*if (File.Exists(path) == false)
@@ -20,16 +17,19 @@ public class FirstRunScript : MonoBehaviour
         {
             isFirst = false;
         }*/
-        if (File.Exists(path) == false) 
-        {
-            firstRun.SetActive(true);
-            save.SaveFiles(path, "1");
-            isFirst = false;
-        }
-        else 
+        if (save.IsExists(path) == true)
         {
             firstRun.SetActive(false);
         }
+        if (save.IsExists(path) == false) 
+        {
+            firstRun.SetActive(true);
+           save.SaveFiles(path, "1");
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        firstRun.SetActive(false);
     }
 }
     /*void Start()
