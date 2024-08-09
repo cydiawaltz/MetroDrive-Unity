@@ -7,6 +7,7 @@ using UnityEngine.Video;
 public class Movie : MonoBehaviour
 {
     public GameObject firstBoot;
+    public GameObject waiting;
     public GameObject movie;
     public VideoPlayer videoPlayer;
     public string sceneName;
@@ -17,7 +18,7 @@ public class Movie : MonoBehaviour
     }
     public void Update()
     {
-        if(firstBoot.activeSelf == false)
+        if(firstBoot.activeSelf == false && waiting.activeSelf == false)
         {
             movie.SetActive(true);
         }

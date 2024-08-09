@@ -5,6 +5,7 @@ public class FirstRunScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject firstRun;
+    public GameObject waiting;
     public Save save;
     string path = @"/FirstBoot.txt";
     private void Start()
@@ -20,11 +21,19 @@ public class FirstRunScript : MonoBehaviour
         if (save.IsExists(path) == true)
         {
             firstRun.SetActive(false);
+            waiting.SetActive(true);
         }
         if (save.IsExists(path) == false) 
         {
             firstRun.SetActive(true);
            save.SaveFiles(path, "1");
+        }
+    }
+    private void Update()
+    {
+        if(firstRun.activeSelf == true)
+        {
+            waiting.SetActive(false);
         }
     }
     private void OnApplicationQuit()
