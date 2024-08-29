@@ -841,7 +841,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 700}
+  m_SizeDelta: {x: 2000, y: 2000}
   m_Pivot: {x: 1, y: 1}
 --- !u!95 &891891635
 Animator:
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bairitu: 2
-  isSetWidth: 0
+  isSetWidth: 1
   isSetHeight: 0
 --- !u!1 &952017707
 GameObject:
@@ -2179,7 +2179,7 @@ GameObject:
   - component: {fileID: 1999984730}
   - component: {fileID: 1999984731}
   m_Layer: 0
-  m_Name: BGM
+  m_Name: controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2212,4 +2212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dfc5efc29a27f14fb1f03b80f087107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: ChooseDiagram
+  sceneName1: ChooseDiagram
+  sceneName2: MaterialHall
+  sceneName3: SaveLoad
+  sceneName4: aboutThisApp
+  sceneName5: exit
+  counter: {fileID: 1125810270}

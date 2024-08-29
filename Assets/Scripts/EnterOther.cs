@@ -5,13 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class EnterOther : MonoBehaviour
 {
-    public string sceneName;
+    public string sceneName1;
+    public string sceneName2;
+    public string sceneName3;
+    public string sceneName4;
+    public string sceneName5;
+    public MenuCounter counter;
     void Update()
     {
-        //TEST
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene(sceneName);
+            if(counter.currentNum == 1)
+            {
+                SceneManager.LoadScene(sceneName1);
+            }
+            if(counter.currentNum == 2)
+            {
+                SceneManager.LoadScene(sceneName2);
+            }
+            if(counter.currentNum == 3)
+            {
+                SceneManager.LoadScene(sceneName3);
+            }
+            if( counter.currentNum == 4)
+            {
+                SceneManager.LoadScene(sceneName4);
+            }
+            if(counter.currentNum == 5)
+            {
+                Application.Quit();
+
+            }
         }
     }
 }

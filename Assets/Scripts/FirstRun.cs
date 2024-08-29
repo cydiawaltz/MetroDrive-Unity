@@ -26,7 +26,8 @@ public class FirstRunScript : MonoBehaviour
         if (save.IsExists(path) == false) 
         {
             firstRun.SetActive(true);
-           save.SaveFiles(path, "1");
+            save.SaveFiles(path, "1");
+            CopyFiles();
         }
     }
     private void Update()
@@ -39,6 +40,10 @@ public class FirstRunScript : MonoBehaviour
     private void OnApplicationQuit()
     {
         firstRun.SetActive(false);
+    }
+    void CopyFiles()
+    {
+
     }
 }
     /*void Start()

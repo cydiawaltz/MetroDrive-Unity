@@ -4,27 +4,38 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityNamedPipe;
 
 public class bvelauncher : MonoBehaviour
 {
-    private Thread pipeThread;
-    private NamedPipeServerStream pipeServer;
+    //private Thread pipeThread;
+    //private NamedPipeServerStream pipeServer;
     public int num;
     public MenuCounter counter;
     bool isChangeScene = false;
     bool isError = false;
+    public string sceneName;
+    //UnityNamedPipeà⁄çså„
+    public NamedPipeServer server;
+    public string sharedMes;
+
     private void Start()
     {
+        server = new NamedPipeServer();
+        server.ReceivedEvent += Received;
+        server.Start("MetroPipe");
     }
-    private void Update()
+    private async void Update()
     {
         num = counter.currentNum;
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            pipeThread = new Thread(PipeListener);
-            pipeThread.Start();
+            //pipeThread = new Thread(PipeListener);
+            //pipeThread.Start();
+            await server.SendCommandAsync(new PipeCommands.SendMessage { Message = num.ToString() });
         }
         if(isChangeScene)
         {
@@ -36,8 +47,26 @@ public class bvelauncher : MonoBehaviour
             SceneManager.LoadScene("Trouble");
             isError = !isError;
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
-    void PipeListener()
+
+    void Received(object sender, DataReceivedEventArgs e)
+    {
+        if (e.CommandType == typeof(PipeCommands.SendMessage))
+        {
+            var d = (PipeCommands.SendMessage)e.Data;
+            sharedMes = d.Message;
+        }
+    }
+    void OnDestroy()
+    {
+        server.ReceivedEvent -= Received;
+        server.Stop();
+    }
+    /*void PipeListener()
     {
             using (pipeServer = new NamedPipeServerStream("utob", PipeDirection.Out, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous))
             {
@@ -69,5 +98,5 @@ public class bvelauncher : MonoBehaviour
         {
             pipeThread.Join();
         }
-    }
+    }*/
 }

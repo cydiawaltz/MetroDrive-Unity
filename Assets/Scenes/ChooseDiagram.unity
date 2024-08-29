@@ -347,6 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   num: 0
   counter: {fileID: 146327714}
+  sceneName: SelectMenu
+  sharedMes: 
 --- !u!1 &243361035
 GameObject:
   m_ObjectHideFlags: 0

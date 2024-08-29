@@ -236,11 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed905b26cf113b240a73e563cf74e352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notCanvas: {fileID: 1820245986}
-  canvas: {fileID: 828858313}
-  width: 0
-  height: 0
-  test: 0
 --- !u!4 &191941973
 Transform:
   m_ObjectHideFlags: 0
@@ -2046,7 +2041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bairitu: 2.5
-  isSetWidth: 0
+  isSetWidth: 1
   isSetHeight: 0
 --- !u!1 &2055651697
 GameObject:

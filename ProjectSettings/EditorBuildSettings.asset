@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TEST.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/ChooseDiagram.unity
+    guid: 0fa11e333c8ab7846a62169b5b97ff42
+  - enabled: 1
     path: Assets/Scenes/Ver0.1.unity
     guid: edff23aa36bf2b849aec5674d19e99f0
   - enabled: 1
@@ -18,9 +21,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectMenu.unity
     guid: 6b84a1c6b9b8fa945b76229ccbada57c
   - enabled: 1
-    path: Assets/Scenes/ChooseDiagram.unity
-    guid: 0fa11e333c8ab7846a62169b5b97ff42
-  - enabled: 1
     path: Assets/Scenes/Trouble.unity
     guid: 7fe9aedc001482d4280d61f178cbf77a
+  - enabled: 1
+    path: Assets/Scenes/MaterialHall.unity
+    guid: cd48fa13ab3daf44ea116e20d20ab4e0
+  - enabled: 1
+    path: Assets/Scenes/music.unity
+    guid: 902c3ed710251b348aeea7f58509af31
+  - enabled: 1
+    path: Assets/Scenes/picture.unity
+    guid: 3b6a19d41d6908f4abbc5457961668f6
   m_configObjects: {}
