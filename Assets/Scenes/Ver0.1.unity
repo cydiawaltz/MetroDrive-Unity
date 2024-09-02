@@ -570,7 +570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7d2beffa4b8b747b2ef7447ca55625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeoutsec: 2000
+  sharedMes: 
+  timeoutSec: 2
   isTest: 1
 --- !u!1 &964473202
 GameObject:
@@ -954,7 +955,7 @@ VideoPlayer:
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
-  - 0.7
+  - 0.5
   m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00

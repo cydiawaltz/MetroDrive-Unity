@@ -34,10 +34,14 @@ public class count : MonoBehaviour
         {
             first.SetActive(false);
             second.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneManager.LoadScene("picture");
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("picture");
+            SceneManager.LoadScene("SelectMenu");
         }
     }
 }

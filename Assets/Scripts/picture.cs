@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -40,6 +41,11 @@ public class picture : MonoBehaviour
                 player.Play();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MaterialHall");
+        }
+
         if(currentnum < 0)
         {
             currentnum = sprites.Length+clips.Length-2;

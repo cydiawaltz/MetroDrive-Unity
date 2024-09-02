@@ -10,6 +10,7 @@ public class FirstRunScript : MonoBehaviour
     string path = @"/FirstBoot.txt";
     private void Start()
     {
+        Screen.SetResolution(1280, 720, false);
         /*if (File.Exists(path) == false)
         {
             isFirst = true;

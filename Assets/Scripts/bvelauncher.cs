@@ -1,10 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Pipes;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityNamedPipe;
@@ -19,14 +12,14 @@ public class bvelauncher : MonoBehaviour
     bool isError = false;
     public string sceneName;
     //UnityNamedPipeà⁄çså„
-    public NamedPipeServer server;
+    public NamedPipeClient client;
     public string sharedMes;
 
     private void Start()
     {
-        server = new NamedPipeServer();
-        server.ReceivedEvent += Received;
-        server.Start("MetroPipe");
+        client = new NamedPipeClient();
+        client.ReceivedEvent += Received;
+        client.Start("MetroPipe");
     }
     private async void Update()
     {
@@ -35,7 +28,8 @@ public class bvelauncher : MonoBehaviour
         {
             //pipeThread = new Thread(PipeListener);
             //pipeThread.Start();
-            await server.SendCommandAsync(new PipeCommands.SendMessage { Message = num.ToString() });
+            await client.SendCommandAsync(new PipeCommands.SendMessage { Message = num.ToString() });
+            SceneManager.LoadScene("wait");
         }
         if(isChangeScene)
         {
@@ -63,8 +57,8 @@ public class bvelauncher : MonoBehaviour
     }
     void OnDestroy()
     {
-        server.ReceivedEvent -= Received;
-        server.Stop();
+        client.ReceivedEvent -= Received;
+        client.Stop();
     }
     /*void PipeListener()
     {

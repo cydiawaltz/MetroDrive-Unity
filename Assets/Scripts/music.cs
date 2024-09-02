@@ -21,6 +21,10 @@ public class music : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MaterialHall");
+        }
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentnum--;
@@ -54,10 +58,6 @@ public class music : MonoBehaviour
         else
         {
             textMeshProUGUI.text = "Track:"+(currentnum).ToString();
-        }
-        if(Input.GetKeyDown (KeyCode.Escape))
-        {
-            SceneManager.LoadScene("SelectMenu");
         }
     }
 }

@@ -1,102 +1,70 @@
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityNamedPipe;
 
 public class WaitForBve : MonoBehaviour
 {
-    NamedPipeServerStream pipeServer;
-    CancellationTokenSource cts;
-    public int timeoutsec;
+    //NamedPipeServerStream pipeServer;
+    //CancellationTokenSource cts;    public bool isTest;
+    //UnityNamedPipe移行後
+    public NamedPipeClient client;
+    public string sharedMes;
+    public float timeoutSec;
     public bool isTest;
 
-    private async void Start()
+    void Start()
     {
-        try
+        client = new NamedPipeClient();
+        client.ReceivedEvent += Received;
+        client.Start("MetroPipe");
+    }
+    async void Update()
+    {
+        if(sharedMes == "hi")
         {
-            string pipeName = "btou";
-            string exepath = Path.Combine(Application.dataPath, "../Apps/BveTs/base.bat");
-
-            // パイプサーバーを作成
-            pipeServer = new NamedPipeServerStream(pipeName, PipeDirection.InOut);
-
-            // バッチファイルを起動
-            Process.Start(exepath);
-
-            cts = new CancellationTokenSource();
-            var connectTask = pipeServer.WaitForConnectionAsync(cts.Token);
-
-            // タイムアウト時間を設定（40sec）
-            var timeoutTask = Task.Delay(timeoutsec);
-
-            // タイムアウトまでの短い方を待機
-            var completedTask = await Task.WhenAny(connectTask, timeoutTask);
-
-            if (completedTask == timeoutTask)
-            {
-                // タイムアウトした場合
-                throw new TimeoutException("タイムアウトしました。(mes from script)");
-            }
-
-            // 接続が確立された場合
-            using (var reader = new StreamReader(pipeServer))
-            {
-                while (pipeServer.IsConnected)
-                {
-                    var str = await reader.ReadLineAsync();
-                    if (str == "ready")
-                    {
-                        Screen.SetResolution(Screen.width, Screen.height, true);
-                        this.gameObject.SetActive(false);
-                        break;
-                    }
-                }
-            }
+            await client.SendCommandAsync(new PipeCommands.SendMessage { Message = "hello" });
         }
-        catch (Exception e)
+        switch(sharedMes)
         {
-            UnityEngine.Debug.Log("Exception Message: " + e.Message);
-            if(isTest)
+            case "hi":
+                await client.SendCommandAsync(new PipeCommands.SendMessage { Message = "hello" });
+                sharedMes = "notset";
+            break;
+            case "ready":
+                Screen.SetResolution(Screen.width, Screen.height, true);
+                this.gameObject.SetActive(false);
+            break;
+        }
+        if(timeoutSec < 0f)
+        {
+            if (isTest)
             {
                 this.gameObject.SetActive(false);
-                //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+                Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
             }
             else
             {
                 SceneManager.LoadScene("Trouble");
             }
+
+        }
+        else
+        {
+            timeoutSec -= Time.deltaTime;
         }
     }
 
-    private void OnDestroy()
+    void Received(object sender,DataReceivedEventArgs e)
     {
-        try
+        if (e.CommandType == typeof(PipeCommands.SendMessage))
         {
-            cts?.Cancel();
-            pipeServer?.Disconnect();
-            pipeServer.Dispose();
-            var timeoutTask = Task.Delay(timeoutsec);
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Debug.Log("Exception during OnDestroy: " + e.Message);
+            var d = (PipeCommands.SendMessage)e.Data;
+            sharedMes = d.Message;
         }
     }
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
-        try
-        {
-            cts?.Cancel();
-            pipeServer?.Disconnect();
-            pipeServer.Dispose();
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Debug.Log("Exception during On AppQuit: " + e.Message);
-        }
+        client.ReceivedEvent -= Received;
+        client.Stop();
     }
 }
