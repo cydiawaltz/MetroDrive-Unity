@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class EnterOther : MonoBehaviour
 {
@@ -32,9 +34,20 @@ public class EnterOther : MonoBehaviour
                 SceneManager.LoadScene(sceneName4);
             }
             if(counter.currentNum == 5)
-            {
-                Application.Quit();
-
+            { 
+                try
+                {
+                    Process process = new Process();
+                    process.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Path.Combine(Application.dataPath, "../../../HongoMCCGame2024.exe"),
+                    };
+                    process.Start();
+                }
+                finally
+                {
+                    Application.Quit();
+                }
             }
         }
     }

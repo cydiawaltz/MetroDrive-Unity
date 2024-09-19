@@ -12,7 +12,7 @@ public class editconfig : MonoBehaviour
     void Start()
     {
         settingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"BveTs\Settings\BveTs6.Preferences.xml");
-        keepPath = Path.Combine(Application.dataPath, @"../SaveData\keep\BveTs6.Preferences.xml");
+        settingfilepath = Path.Combine(Application.dataPath, @"../SaveData\keep\BveTs6.Preferences.xml");
         keepPath = Path.Combine(Application.dataPath, @"../SaveData\config\normal.xml");
         if (File.Exists(settingPath))
         {
